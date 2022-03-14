@@ -122,7 +122,7 @@ def make_guess(page, hints, auto=False):
         return guess
 
     # manual play
-    guess = input('Guess a word: ')
+    guess = input('Guess a word: ').lower()
     if len(guess) != 5:
         print(f'Error: {guess} must be 5 letters long.')
         return make_guess(page, hints, auto)
@@ -132,6 +132,17 @@ def make_guess(page, hints, auto=False):
     else:
         guess_word(page, guess)
         return guess
+
+def printable_hint(hint, auto):
+    colors = {
+        'present': '🟨',
+        'absent': '⬛',
+        'overused': '⬛',
+        'correct': '🟩',
+    }
+    properly_spaced_guess = ' ' + ' '.join([letter.upper() for letter, _ in hint])
+    pretty_hint = ''.join([colors[eval] for letter, eval in hint])
+    return properly_spaced_guess + '\n' + pretty_hint + '\n'
 
 if __name__ == '__main__':
 
@@ -164,9 +175,9 @@ if __name__ == '__main__':
         while not all_correct(page, hints) and len(guesses) < 6:
             guess = make_guess(page, hints, auto)
             guesses.append(guess)
-            time.sleep(2.1)
+            time.sleep(2)
             hints.append(get_hints(page, len(guesses)))
-            print(hints[-1])
+            print(printable_hint(hints[-1], auto))
             plausible = prune_words(words, hints)
 
         if all_correct(page, hints):
