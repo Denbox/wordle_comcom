@@ -8,5 +8,6 @@ This version is cleaned up, easier to read, and emphasizes the competitive compa
 ## Dependencies
 `python3` with the `playwright` package
 
-## Execute Solver
-`python3 solve.py`
+## Run
+`python3 solve.py` to play via the command line, or `python3 solve.py --auto` to let the computer do it.
+Without an alternative wordle client, it would not be easy to add a solver to wordle itself.
